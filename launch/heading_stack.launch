@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
 
+  <arg name="rtcm_corrections" default="/rtcm"/>
+  <arg name="xsens_quaternion" default="/aristos/imu/data"/>
+
   <include file="$(find septentrio_gnss_driver)/launch/rover.launch">
     <arg name="param_file_name" value="rover"/>
   </include>
 
-  <node pkg="septentrio_gnss_driver" type="rtcm_bridge.py" name="rtcm_bridge" output="screen"/>
-  <node pkg="septentrio_gnss_driver" type="xsens_heading.py" name="xsens_heading" output="screen"/>
+  <node pkg="septentrio_gnss_driver" type="rtcm_bridge.py" name="rtcm_bridge" output="screen">
+    <remap from="rtcm" to="$(arg rtcm_corrections)"/>
+  </node>
 
+  <node pkg="septentrio_gnss_driver" type="xsens_heading.py" name="xsens_heading" output="screen">
+    <remap from="aristos/imu/data" to="$(arg xsens_quaternion)"/>
+  </node>
+  
 </launch>

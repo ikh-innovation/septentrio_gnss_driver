@@ -9,8 +9,8 @@ class HeadingPublisher:
     def __init__(self):
         rospy.init_node('xsens_heading')
 
-        self.pub = rospy.Publisher('/aristos/imu/heading', Float64, queue_size=10)
-        rospy.Subscriber('/aristos/imu/data', Imu, self.imu_callback)
+        self.pub = rospy.Publisher('aristos/imu/heading', Float64, queue_size=10)
+        rospy.Subscriber('aristos/imu/data', Imu, self.imu_callback)
         rospy.loginfo("[xsens_heading] Subscription to /aristos/imu/data, publishing heading to /aristos/imu/heading.")
 
     def imu_callback(self, msg: Imu):

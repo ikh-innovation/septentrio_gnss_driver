@@ -9,12 +9,12 @@ PORT = 28784
 
 class RTCMBridge:
     def __init__(self):
-        rospy.init_node('rtcm_to_septentrio_bridge')
+        rospy.init_node('rtcm_bridge')
         self.sock = None
         self.connect_tcp()
         
         # Subscription to /rtcm topic
-        rospy.Subscriber('/rtcm', RTCM, self.rtcm_callback)
+        rospy.Subscriber('rtcm', RTCM, self.rtcm_callback)
         rospy.loginfo("[rtcm_bridge] Subscription to /rtcm, forwarding to Septentrio TCP socket.")
         rospy.spin()
 
