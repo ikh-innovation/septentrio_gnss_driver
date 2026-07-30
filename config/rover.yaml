@@ -30,7 +30,7 @@ osnma:
   ntp_server: ""
   keep_open: true
 
-frame_id: gnss
+frame_id: aristos_gnss_main_antenna_link
 
 imu_frame_id: imu
 
@@ -38,7 +38,7 @@ poi_frame_id: base_link
 
 vsm_frame_id: vsm
 
-aux1_frame_id: aux1
+aux1_frame_id: aristos_gnss_aux_antenna_link
 
 vehicle_frame_id: base_link
 
@@ -65,7 +65,7 @@ poi_to_arp:
   delta_u: 0.0
 
 att_offset:
-  heading: -42.66
+  heading: -42.67
   pitch: 0.0
 
 ant_type: "Unknown"
@@ -79,7 +79,7 @@ polling_period:
 
 # time
 use_gnss_time: false
-ntp_server: true
+ntp_server: false
 ptp_server_clock: false
 latency_compensation: true
 
@@ -115,27 +115,27 @@ publish:
   # For both GNSS and INS Rxs  
   auto_publish: false
   publish_only_valid: false
-  navsatfix: false
+  navsatfix: true
   gpsfix: true
-  gpgga: false
-  gprmc: false
-  gpst: false
+  gpgga: true
+  gprmc: true
+  gpst: true
   measepoch: true
   pvtcartesian: true
   pvtgeodetic: true
-  basevectorcart: false
-  basevectorgeod: false
-  poscovcartesian: false
+  basevectorcart: true
+  basevectorgeod: true
+  poscovcartesian: true
   poscovgeodetic: true
-  velcovcartesian: false
+  velcovcartesian: true
   velcovgeodetic: true
   atteuler: true
   attcoveuler: true
-  pose: false
-  twist: false
+  pose: true
+  twist: true
   diagnostics: true
   aimplusstatus: true
-  galauthstatus: false
+  galauthstatus: true
   # For GNSS Rx only
   gpgsa: false
   gpgsv: false

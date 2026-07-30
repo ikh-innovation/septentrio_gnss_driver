@@ -1,12 +1,7 @@
 # Septentrio & Xsens Integration Stack
 
 This setup integrates the Septentrio mosaic-H driver with an Xsens IMU heading conversion node.  
-Its primary goal is:
-
-1. to stream RTCMv3 corrections to the Septentrio receiver over an internal TCP socket and  
-2. expose IMU heading measurements in degrees
-
-for real-time visualization and performance comparison in Foxglove.
+Its primary goal is to stream RTCMv3 corrections to the Septentrio receiver over an internal TCP socket for real-time visualization and performance comparison in Foxglove.
 
 ## 1. System Overview
 
@@ -14,7 +9,6 @@ The [`heading_stack.launch`](https://github.com/ikh-innovation/septentrio_gnss_d
 
 * [`rover.launch`](https://github.com/ikh-innovation/septentrio_gnss_driver/blob/feature/heading_test/launch/rover.launch): main driver launch file that initializes static TF transforms, loads configuration parameters from a YAML file, and starts the `septentrio_gnss_driver_node`.
 * [`rtcm_bridge.py`](https://github.com/ikh-innovation/septentrio_gnss_driver/blob/feature/heading_test/scripts/rtcm_bridge.py): TCP bridge for RTCM corrections
-* [`xsens_heading.py`](https://github.com/ikh-innovation/septentrio_gnss_driver/blob/feature/heading_test/scripts/xsens_heading.py): node converting Xsens orientation (yaw) from quaternions to Euler angles
 
 ## 2. About RTK settings in [`rover.yaml`](https://github.com/ikh-innovation/septentrio_gnss_driver/blob/feature/heading_test/config/rover.yaml)
 
@@ -59,13 +53,6 @@ The Septentrio receiver receives network access and internet connection via USB.
 
 * Subscribes: `/rtcm`
 * Output: forwards raw binary RTCMv3 stream directly into the Septentrio native TCP port `10.42.0.127:28784`.
-
-### 3.2 Why `xsens_heading.py` is needed
-
-The raw Xsens IMU output provides orientation as a 3D Quaternion. This node converts the complex quaternion data into a direct, human-readable Yaw angle (0° to ±180°).
-
-* Subscribes: `/aristos/imu/data`
-* Publishes: `/aristos/imu/heading` (heading calculated in degrees).
 
 ## 4. Usage
 
