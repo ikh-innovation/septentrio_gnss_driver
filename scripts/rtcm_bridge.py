@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""
+This ROS node subscribes to the /rtcm topic and forwards the received
+RTCM correction data to the Septentrio GNSS receiver via a TCP socket.
+
+The node automatically attempts to reconnect to the Septentrio receiver if the TCP connection is lost.
+"""
+
 import socket
 import time
 import rospy
@@ -10,14 +17,15 @@ PORT = 28784
 class RTCMBridge:
     def __init__(self):
         rospy.init_node('rtcm_bridge')
+        
         self.sock = None
         self.connect_tcp()
         
         # Subscription to /rtcm topic
         rospy.Subscriber('rtcm', RTCM, self.rtcm_callback)
         rospy.loginfo("[rtcm_bridge] Subscription to /rtcm, forwarding to Septentrio TCP socket.")
+        
         rospy.spin()
-
 
     def connect_tcp(self):
         while not rospy.is_shutdown():
