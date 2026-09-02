@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+
+  <include file="$(find septentrio_gnss_driver)/launch/rover.launch">
+    <arg name="param_file_name" value="rover"/>
+  </include>
+
+  <node pkg="septentrio_gnss_driver"
+        type="rtcm_bridge.py"
+        name="rtcm_bridge"
+        output="screen">
+  </node>
+
+  <node pkg="septentrio_gnss_driver"
+        type="aristos_base_from_septentrio.py"
+        name="aristos_base_from_septentrio"
+        output="screen"/>
+</launch>
